@@ -16,7 +16,7 @@ client.connect((err) => {
   if (err) {
     return console.error("Connection Error", err);
   }
-  client.query("SELECT first_name, last_name, birthdate FROM famous_people WHERE first_name = $1::text OR last_name = $1::text", [personName], (err, result) => {
+  client.query("SELECT first_name, last_name, birthdate FROM famous_people WHERE first_name ILIKE $1::text OR last_name ILIKE $1::text", [`${personName}%`], (err, result) => {
     if (err) {
       return console.error("error running query", err);
     }
